@@ -9,7 +9,8 @@ class Client(object):
     def __init__(self):
         self._client = SOAPpy.SOAPProxy(QIWI_SOAP_ISHOP_URL)
 
-    def createBill(self, phone, amount, comment, txn, lifetime, alarm=QIWI_ALARM):
+    def createBill(self, phone, amount, comment, txn, lifetime,
+                   alarm=QIWI_ALARM, create=QIWI_CREATE):
         return self._client.createBill(
             login=QIWI_LOGIN,
             password=QIWI_PASSWORD,
@@ -17,8 +18,9 @@ class Client(object):
             amount=amount,
             comment=comment,
             txn=txn,
-            lifetime=lifetime,
+            lifetime=lifetime.strftime("%d.%m.%Y %H:%M:%S"),
             alarm=alarm,
+            create=create
         )
 
     def cancelBill(self, txn):
