@@ -8,6 +8,7 @@ import SOAPpy
 def updateBill(login, password, txn, status):
     if _checkLogin(login) and _checkPassword(password, txn):
         update_bill(txn, status)
+    return 0
 
 def _checkLogin(login):
     return login == QIWI_LOGIN

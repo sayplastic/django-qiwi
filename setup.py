@@ -11,7 +11,7 @@ setup(
     author='Ivan Petukhov',
     author_email='satels@gmail.com',
     packages=[
-        'django_qiwi', 'django_qiwi.qiwi_soap',
+        'django_qiwi', 'django_qiwi.soap',
         'django_qiwi.management', 'django_qiwi.management.commands'
     ],
     license = 'MIT license',
