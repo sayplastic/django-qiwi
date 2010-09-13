@@ -10,7 +10,10 @@ setup(
     version='0.1.1',
     author='Ivan Petukhov',
     author_email='satels@gmail.com',
-    packages=['django_qiwi', 'django_qiwi.qiwi_soap'],
+    packages=[
+        'django_qiwi', 'django_qiwi.qiwi_soap',
+        'django_qiwi.management', 'django_qiwi.management.commands'
+    ],
     license = 'MIT license',
     description = u'Приложение для работы с qiwi.ru.'.encode('utf8'),
     classifiers=(
