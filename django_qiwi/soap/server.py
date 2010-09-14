@@ -7,14 +7,18 @@ import SOAPpy
 
 def updateBill(login, password, txn, status):
     if _checkLogin(login) and _checkPassword(password, txn):
-        update_bill(txn, status)
-    return 0
+        return update_bill(txn, status)
+    else:
+        return 150
+
 
 def _checkLogin(login):
     return login == QIWI_LOGIN
 
 def _checkPassword(password, txn):
-    secret_key = md5(txn + md5(QIWI_PASSWORD).upper()).upper()
+    secret_key = md5(
+        str(txn) + md5(QIWI_PASSWORD).hexdigest().upper()
+    ).hexdigest().upper()
     return secret_key == password
 
 

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 from django_qiwi.conf import *
+from django_qiwi.soap.utils import STATUS_CODE_TEXT
 
 
 def get_qiwi_app():
@@ -23,9 +24,13 @@ def get_qiwi_app():
 def update_bill(txn, status):
     qiwi_package = get_qiwi_app()
     if hasattr(qiwi_package, "update_bill"):
-        qiwi_package.update_bill(txn, status)
+        return qiwi_package.update_bill(txn, status)
     else:
         raise ImproperlyConfigured(
             u"Задайте функцию update_bill(txn, status) в пакете QIWI_APP (%r)" % \
                 QIWI_APP
         )
+
+
+def get_status_text(code):
+    return dict(STATUS_CODE_TEXT).get(code)

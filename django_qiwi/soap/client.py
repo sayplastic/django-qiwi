@@ -11,7 +11,7 @@ class Client(object):
 
     def createBill(self, phone, amount, comment, txn, lifetime,
                    alarm=QIWI_ALARM, create=QIWI_CREATE):
-        return self._client.createBill(
+        response = self._client.createBill(
             login=QIWI_LOGIN,
             password=QIWI_PASSWORD,
             user=phone,
@@ -22,13 +22,15 @@ class Client(object):
             alarm=alarm,
             create=create
         )
+        return int(response)
 
     def cancelBill(self, txn):
-        return self._client.cancelBill(
+        response = self._client.cancelBill(
             login=QIWI_LOGIN,
             password=QIWI_PASSWORD,
             txn=txn,
         )
+        return int(response)
 
     def checkBill(self, txn):
         response = self._client.checkBill(
@@ -41,5 +43,5 @@ class Client(object):
             'amount': float(response.amount),
             'date': dateutil_parser.parse(response.date),
             'lifetime': dateutil_parser.parse(response.lifetime),
-            'status': response.status,
+            'status': int(response.status),
         }
