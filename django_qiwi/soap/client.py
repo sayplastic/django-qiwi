@@ -18,7 +18,7 @@ class Client(object):
             amount=amount,
             comment=comment,
             txn=txn,
-            lifetime=lifetime.strftime("%d.%m.%Y %H:%M:%S"),
+            lifetime=lifetime.strftime(QIWI_DATE_FORMAT),
             alarm=alarm,
             create=create
         )

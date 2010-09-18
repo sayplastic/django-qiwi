@@ -16,10 +16,13 @@ def _checkLogin(login):
     return login == QIWI_LOGIN
 
 def _checkPassword(password, txn):
-    secret_key = md5(
+    secret_key = _getSecretKeyByTxn(txn)
+    return secret_key == password
+
+def _getSecretKeyByTxn(txn):
+    return md5(
         str(txn) + md5(QIWI_PASSWORD).hexdigest().upper()
     ).hexdigest().upper()
-    return secret_key == password
 
 
 class Server(object):
@@ -30,4 +33,7 @@ class Server(object):
 
     def runserver(self):
         self._server.serve_forever()
+
+    def stopserver(self):
+        self._server.shutdown()
 

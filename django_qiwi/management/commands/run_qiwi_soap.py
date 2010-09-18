@@ -5,5 +5,6 @@ from django_qiwi.soap.server import Server as QiwiServer
 
 class Command(NoArgsCommand):
 
-    server = QiwiServer()
-    server.runserver()
+    def handle(self, *args, **kwargs):
+        server = QiwiServer()
+        server.runserver()
