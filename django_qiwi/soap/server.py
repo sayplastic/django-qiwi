@@ -33,5 +33,6 @@ class QiwiServerService(SimpleWSGISoapApp):
 
 def runserver():
     from wsgiref.simple_server import make_server
-    server = make_server('tutpokupki.ru', 17777, QiwiServerService())
+    host, port = QIWI_SOAP_SERVER
+    server = make_server(host, port, QiwiServerService())
     server.serve_forever()
