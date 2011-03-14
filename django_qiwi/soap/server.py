@@ -2,14 +2,9 @@
 from django_qiwi import update_bill
 from django_qiwi.conf import *
 from hashlib import md5
-import SOAPpy
-
-
-def updateBill(login, password, txn, status):
-    if _checkLogin(login) and _checkPassword(password, txn):
-        return update_bill(txn, status)
-    else:
-        return 150
+from soaplib.wsgi_soap import SimpleWSGISoapApp
+from soaplib.service import soapmethod
+from soaplib.serializers.primitive import String, Integer, Array
 
 
 def _checkLogin(login):
@@ -22,12 +17,18 @@ def _checkPassword(password, txn):
     return secret_key == password
 
 
-class Server(object):
+class QiwiServerService(SimpleWSGISoapApp):
 
-    def __init__(self):
-        self._server = SOAPpy.SOAPServer(QIWI_SOAP_SERVER)
-        self._server.registerFunction(updateBill)
+    @soapmethod(String, String, String, Integer, _returns=Integer)
+    def updateBill(self, login, password, txn, status):
+        if _checkLogin(login) and _checkPassword(password, txn):
+            response = update_bill(txn, status)
+        else:
+            response = 150
+        return response
 
-    def runserver(self):
-        self._server.serve_forever()
 
+def runserver():
+    from wsgiref.simple_server import make_server
+    server = make_server('tutpokupki.ru', 17777, QiwiServerService())
+    server.serve_forever()

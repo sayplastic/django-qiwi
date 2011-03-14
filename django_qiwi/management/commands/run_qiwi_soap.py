@@ -1,9 +1,9 @@
 #encoding:utf8
 from django.core.management.base import NoArgsCommand
-from django_qiwi.soap.server import Server as QiwiServer
+from django_qiwi.soap.server import runserver
 
 
 class Command(NoArgsCommand):
 
-    server = QiwiServer()
-    server.runserver()
+    def handle_noargs(self, **options):
+        runserver()

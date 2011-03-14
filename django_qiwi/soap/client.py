@@ -40,8 +40,8 @@ class Client(object):
         )
         return {
             'phone': response.user,
-            'amount': float(response.amount),
+            'amount': float(response.amount or 0),
             'date': dateutil_parser.parse(response.date),
             'lifetime': dateutil_parser.parse(response.lifetime),
-            'status': int(response.status),
+            'status': abs(int(response.status)),
         }
