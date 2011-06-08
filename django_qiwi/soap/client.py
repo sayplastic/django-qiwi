@@ -16,7 +16,7 @@ class Client(object):
             login=QIWI_LOGIN,
             password=QIWI_PASSWORD,
             user=phone,
-            amount=amount,
+            amount=str(amount),
             comment=comment,
             txn=txn,
             lifetime=_format_datetime(lifetime),
