@@ -44,7 +44,7 @@ class Client(object):
             'amount': _parse_amount(response.amount),
             'date': _parse_datetime(response.date),
             'lifetime': _parse_datetime(response.lifetime),
-            'status': abs(int(response.status)),
+            'status': int(response.status),
         }
 
 
