@@ -9,4 +9,4 @@ QIWI_PASSWORD = getattr(settings, 'QIWI_PASSWORD')
 QIWI_CREATE  = getattr(settings, 'QIWI_CREATE', 0)
 QIWI_ALARM  = getattr(settings, 'QIWI_ALARM', 0)
 QIWI_SOAP_SERVER = getattr(settings, 'QIWI_SOAP_SERVER')
-QIWI_DATE_FORMAT = getattr(settings, 'QIWI_DATE_FORMAT', "%d.%m.%Y %H:%M:%S")
+

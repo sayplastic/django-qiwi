@@ -11,6 +11,8 @@ def _checkLogin(login):
     return login == QIWI_LOGIN
 
 def _checkPassword(password, txn):
+    if password is None:
+        return True
     secret_key = _getSecretKeyByTxn(txn)
     return secret_key == password
 
