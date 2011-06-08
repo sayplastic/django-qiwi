@@ -4,3 +4,4 @@ build/
 .pydevproject
 .settings/
 django_qiwi.egg-info/
+qiwi_soap_server.sh

@@ -1,0 +1,7 @@
+#!/bin/bash
+# mv qiwi_soap_server.sh.example qiwi_soap_server.sh
+python=/usr/bin/python
+
+manage_py=/srv/example_com/manage.py
+
+$python $manage_py run_qiwi_soap
