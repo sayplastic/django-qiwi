@@ -1,5 +1,5 @@
 #coding:utf8
-from dateutil import parser as dateutil_parser
+import datetime
 from django_qiwi.conf import *
 import SOAPpy
 
@@ -18,7 +18,7 @@ class Client(object):
             amount=amount,
             comment=comment,
             txn=txn,
-            lifetime=lifetime.strftime(QIWI_DATE_FORMAT),
+            lifetime=_format_datetime(lifetime),
             alarm=alarm,
             create=create
         )
@@ -41,7 +41,24 @@ class Client(object):
         return {
             'phone': response.user,
             'amount': float(response.amount or 0),
-            'date': dateutil_parser.parse(response.date),
-            'lifetime': dateutil_parser.parse(response.lifetime),
+            'date': _parse_datetime(response.date),
+            'lifetime': _parse_datetime(response.lifetime),
             'status': abs(int(response.status)),
         }
+
+
+_DATETIME_FORMAT = '%d.%m.%Y %H:%M:%S'
+
+def _parse_datetime(s):
+    if not s:
+        return None
+
+    return datetime.datetime.strptime(s, _DATETIME_FORMAT)
+
+
+def _format_datetime(d):
+    if not d:
+        return ''
+
+    return d.strftime(_DATETIME_FORMAT)
+
