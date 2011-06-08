@@ -1,7 +1,8 @@
 #coding:utf8
 import datetime
-from django_qiwi.conf import *
+import decimal
 import SOAPpy
+from django_qiwi.conf import *
 
 
 class Client(object):
@@ -40,11 +41,18 @@ class Client(object):
         )
         return {
             'phone': response.user,
-            'amount': float(response.amount or 0),
+            'amount': _parse_amount(response.amount),
             'date': _parse_datetime(response.date),
             'lifetime': _parse_datetime(response.lifetime),
             'status': abs(int(response.status)),
         }
+
+
+def _parse_amount(amount):
+    if not amount:
+        return None
+
+    return decimal.Decimal(amount)
 
 
 _DATETIME_FORMAT = '%d.%m.%Y %H:%M:%S'
