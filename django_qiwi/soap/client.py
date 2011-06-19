@@ -1,8 +1,9 @@
 #coding:utf8
+from django_qiwi.conf import QIWI_LOGIN, QIWI_PASSWORD, QIWI_SOAP_ISHOP_URL, \
+    QIWI_CREATE, QIWI_ALARM
+import SOAPpy
 import datetime
 import decimal
-import SOAPpy
-from django_qiwi.conf import *
 
 
 class Client(object):

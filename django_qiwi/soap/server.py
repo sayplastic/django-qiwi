@@ -1,10 +1,10 @@
 #coding:utf8
 from django_qiwi import update_bill
-from django_qiwi.conf import *
+from django_qiwi.conf import QIWI_LOGIN, QIWI_PASSWORD, QIWI_SOAP_SERVER
 from hashlib import md5
-from soaplib.wsgi_soap import SimpleWSGISoapApp
-from soaplib.service import soapmethod
 from soaplib.serializers.primitive import String, Integer, Array
+from soaplib.service import soapmethod
+from soaplib.wsgi_soap import SimpleWSGISoapApp
 
 
 def _checkLogin(login):
