@@ -9,7 +9,7 @@ reload(sys).setdefaultencoding("UTF-8")
 
 setup(
     name='django-qiwi',
-    version='0.1.2',
+    version='0.1.3',
     author='Ivan Petukhov',
     author_email='satels@gmail.com',
     packages=[
@@ -19,7 +19,7 @@ setup(
     license = 'MIT license',
     description = u'Приложение для работы с qiwi.ru.'.encode('utf8'),
     classifiers=(
-        'Development Status :: 1 - Beta',
+        'Development Status :: 1',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
