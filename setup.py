@@ -16,10 +16,12 @@ setup(
         'django_qiwi', 'django_qiwi.soap',
         'django_qiwi.management', 'django_qiwi.management.commands'
     ],
+    url='http://satels.blogspot.com/2011/07/django-qiwi-django-soap.html',
+    download_url = 'https://github.com/satels/django-qiwi/zipball/master'
     license = 'MIT license',
     description = u'Приложение для работы с qiwi.ru.'.encode('utf8'),
     classifiers=(
-        'Development Status :: 1',
+        'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
