@@ -30,5 +30,5 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Natural Language :: Russian',
     ),
-    install_requires=['soaplib==0.8.1', 'SOAPPy==0.12.0']
+    install_requires=['soaplib==0.8.1', 'SOAPPy==0.12.5']
 )
