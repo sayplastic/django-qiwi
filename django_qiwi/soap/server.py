@@ -2,9 +2,15 @@
 from django_qiwi import update_bill
 from django_qiwi.conf import QIWI_LOGIN, QIWI_PASSWORD, QIWI_SOAP_SERVER
 from hashlib import md5
-from soaplib.serializers.primitive import String, Integer, Array
-from soaplib.service import soapmethod
-from soaplib.wsgi_soap import SimpleWSGISoapApp
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+
+from spyne.protocol.soap import Soap11
+from spyne.application import Application
+from spyne.service import ServiceBase
+from spyne.decorator import srpc
+from spyne.model.primitive import String, Integer
+from spyne.server.django import DjangoApplication
 
 
 def _checkLogin(login):
@@ -22,10 +28,10 @@ def _getSecretKeyByTxn(txn):
     ).hexdigest().upper()
 
 
-class QiwiServerService(SimpleWSGISoapApp):
-
-    @soapmethod(String, String, String, Integer, _returns=Integer)
-    def updateBill(self, login, password, txn, status):
+class QiwiService(ServiceBase):
+    @srpc(String, String, String, Integer, _returns=Integer)
+    def updateBill(login, password, txn, status):
+        print login, password, txn, status
         if _checkLogin(login) and _checkPassword(password, txn):
             response = update_bill(txn, status)
         else:
@@ -33,8 +39,10 @@ class QiwiServerService(SimpleWSGISoapApp):
         return response
 
 
-def runserver():
-    from wsgiref.simple_server import make_server
-    host, port = QIWI_SOAP_SERVER
-    server = make_server(host, port, QiwiServerService())
-    server.serve_forever()
+qiwi_django_application = csrf_exempt(DjangoApplication(
+    Application([QiwiService],
+        tns='qiwi.application.django',
+        in_protocol=Soap11(),
+        out_protocol=Soap11()
+    )
+))
