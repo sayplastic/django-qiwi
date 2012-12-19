@@ -44,7 +44,7 @@ class QiwiService(ServiceBase):
 
 qiwi_django_application = csrf_exempt(DjangoApplication(
     Application([QiwiService],
-        tns='qiwi.application.django',
+        tns='http://client.ishop.mw.ru/',
         in_protocol=Soap11(),
         out_protocol=Soap11()
     )
