@@ -4,6 +4,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 from django_qiwi.conf import *
 from django_qiwi.soap.utils import STATUS_CODE_TEXT
+from django.dispatch import Signal
+
+
+qiwi_update_bill = Signal(providing_args=['txn', 'status'])
 
 
 def get_qiwi_app():
@@ -23,6 +27,7 @@ def get_qiwi_app():
 
 def update_bill(txn, status):
     qiwi_package = get_qiwi_app()
+    qiwi_update_bill.send(sender=update_bill, txn=txn, status=status)
     if hasattr(qiwi_package, "update_bill"):
         return qiwi_package.update_bill(txn, status)
     else:
