@@ -1,4 +1,5 @@
 #coding:utf8
+import logging
 from django_qiwi import update_bill
 from django_qiwi.conf import QIWI_LOGIN, QIWI_PASSWORD, QIWI_SOAP_SERVER
 from hashlib import md5
@@ -13,6 +14,8 @@ from spyne.model.primitive import String, Integer
 from spyne.server.django import DjangoApplication
 
 
+logger = logging.getLogger('django')
+
 def _checkLogin(login):
     return login == QIWI_LOGIN
 
@@ -20,6 +23,7 @@ def _checkPassword(password, txn):
     if password is None:
         return True
     secret_key = _getSecretKeyByTxn(txn)
+    logger.debug('got credentials from qiwi, our key: %s, their key: %s', secret_key, password)
     return secret_key == password
 
 def _getSecretKeyByTxn(txn):
