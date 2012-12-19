@@ -35,7 +35,10 @@ def _getSecretKeyByTxn(txn):
 class QiwiService(ServiceBase):
     @srpc(String, String, String, Integer, _returns=Integer)
     def updateBill(login, password, txn, status):
+        logger.debug('updateBill request from qiwi; login=%s, password=%s, txn=%s, status=%s', 
+            login, password, txn, status)
         if _checkLogin(login) and _checkPassword(password, txn):
+            logger.error('qiwi password mismatch for order %s', txn)
             response = update_bill(txn, status)
         else:
             response = 150
