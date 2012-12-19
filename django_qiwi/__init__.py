@@ -16,13 +16,13 @@ def get_qiwi_app():
     qiwi_app = QIWI_APP
     if qiwi_app not in settings.INSTALLED_APPS:
         raise ImproperlyConfigured(
-            u"QIWI_APP (%r) должен быть установлен в INSTALLED_APPS" % qiwi_app
+            'QIWI_APP is set to %s which doesn\'t appear to beinstalled' % qiwi_app
         )
     try:
         package = import_module(qiwi_app)
     except ImportError:
         raise ImproperlyConfigured(
-            u"QIWI_APP ссылается на несуществующий пакет."
+            'Cannot import %s' % qiwi_app
         )
     return package
 
@@ -34,8 +34,7 @@ def update_bill(txn, status):
         return qiwi_package.update_bill(txn, status)
     else:
         raise ImproperlyConfigured(
-            u"Задайте функцию update_bill(txn, status) в пакете QIWI_APP (%r)" % \
-                QIWI_APP
+            'Define update_bill(txn, status) function in QIWI_APP (%r)' % QIWI_APP
         )
 
 
