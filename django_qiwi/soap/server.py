@@ -14,7 +14,7 @@ from spyne.model.primitive import String, Integer
 from spyne.server.django import DjangoApplication
 
 
-logger = logging.getLogger('django')
+logger = logging.getLogger('django.qiwi')
 
 def _checkLogin(login):
     return login == QIWI_LOGIN
@@ -35,7 +35,6 @@ def _getSecretKeyByTxn(txn):
 class QiwiService(ServiceBase):
     @srpc(String, String, String, Integer, _returns=Integer)
     def updateBill(login, password, txn, status):
-        print login, password, txn, status
         if _checkLogin(login) and _checkPassword(password, txn):
             response = update_bill(txn, status)
         else:
