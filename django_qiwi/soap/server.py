@@ -23,7 +23,6 @@ def _checkPassword(password, txn):
     if password is None:
         return True
     secret_key = _getSecretKeyByTxn(txn)
-    logger.debug('got credentials from qiwi, our key: %s, their key: %s', secret_key, password)
     return secret_key == password
 
 def _getSecretKeyByTxn(txn):
@@ -35,12 +34,12 @@ def _getSecretKeyByTxn(txn):
 class QiwiService(ServiceBase):
     @srpc(String, String, String, Integer, _returns=Integer)
     def updateBill(login, password, txn, status):
-        logger.debug('updateBill request from qiwi; login=%s, password=%s, txn=%s, status=%s', 
-            login, password, txn, status)
+        logger.debug('updateBill request from qiwi; login=%s, password=xxx, txn=%s, status=%s', 
+            login, txn, status)
         if _checkLogin(login) and _checkPassword(password, txn):
-            logger.error('qiwi password mismatch for order %s', txn)
             response = update_bill(txn, status)
         else:
+            logger.error('qiwi password mismatch for order %s', txn)
             response = 150
         return response
 
