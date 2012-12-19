@@ -1,4 +1,6 @@
 #coding:utf8
+import re
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
@@ -39,3 +41,7 @@ def update_bill(txn, status):
 
 def get_status_text(code):
     return dict(STATUS_CODE_TEXT).get(code)
+
+
+def process_phone(phone):
+    return re.sub(r'\D', '', phone).lstrip('7')
