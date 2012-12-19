@@ -14,10 +14,10 @@ qiwi_update_bill = Signal(providing_args=['txn', 'status'])
 
 def get_qiwi_app():
     qiwi_app = QIWI_APP
-    if qiwi_app not in settings.INSTALLED_APPS:
-        raise ImproperlyConfigured(
-            'QIWI_APP is set to %s which doesn\'t appear to beinstalled' % qiwi_app
-        )
+    # if qiwi_app not in settings.INSTALLED_APPS:
+    #     raise ImproperlyConfigured(
+    #         'QIWI_APP is set to %s which doesn\'t appear to beinstalled' % qiwi_app
+    #     )
     try:
         package = import_module(qiwi_app)
     except ImportError:
