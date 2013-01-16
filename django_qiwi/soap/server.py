@@ -41,6 +41,7 @@ class QiwiService(ServiceBase):
         else:
             logger.error('qiwi password mismatch for order %s', txn)
             response = 150
+        logger.debug('order #%s: our response is %s', txn, response)
         return response
 
 
