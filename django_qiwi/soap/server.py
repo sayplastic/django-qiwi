@@ -39,7 +39,6 @@ def new_get_members_etree(prot, cls, inst, parent):
     if not (parent_cls is None):
         get_members_etree(prot, parent_cls, inst, parent)
 
-    print prot, cls, inst, parent
     for k, v in cls._type_info.items():
         try:
             subvalue = getattr(inst, k, None)
@@ -61,17 +60,17 @@ def new_get_members_etree(prot, cls, inst, parent):
             continue
 
         mo = v.Attributes.max_occurs
-        # For the love of god I couldn't figure out why does spyne put attributes
-        # on SOAP result tag, so this ends here. Die, you friggin' namespace.
 
-        cls.__namespace__ = ''
         if subvalue is not None and mo > 1:
             for sv in subvalue:
                 prot.to_parent_element(v, sv, cls.get_namespace(), parent, k)
 
         # Don't include empty values for non-nillable optional attributes.
         elif subvalue is not None or v.Attributes.min_occurs > 0:
-            prot.to_parent_element(v, subvalue, cls.get_namespace(), parent, k)
+            # I couldn't figure out why does spyne put namespance
+            # on a SOAP result tag, so this ends here. Die, you friggin' namespace.
+            # prot.to_parent_element(v, subvalue, cls.get_namespace(), parent, k)
+            prot.to_parent_element(v, subvalue, '', parent, k)
 
     for k in delay:
         v = cls._type_info[k]
@@ -102,6 +101,6 @@ qiwi_django_application = csrf_exempt(DjangoApplication(
     Application([QiwiService],
         tns='http://client.ishop.mw.ru/',
         in_protocol=Soap11(),
-        out_protocol=Soap11()
+        out_protocol=Soap11(wrapped=False)
     )
 ))
