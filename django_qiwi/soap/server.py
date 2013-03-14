@@ -39,6 +39,7 @@ def new_get_members_etree(prot, cls, inst, parent):
     if not (parent_cls is None):
         get_members_etree(prot, parent_cls, inst, parent)
 
+    print prot, cls, inst, parent
     for k, v in cls._type_info.items():
         try:
             subvalue = getattr(inst, k, None)
@@ -62,7 +63,7 @@ def new_get_members_etree(prot, cls, inst, parent):
         mo = v.Attributes.max_occurs
         # For the love of god I couldn't figure out why does spyne put attributes
         # on SOAP result tag, so this ends here. Die, you friggin' namespace.
-        print k, v
+
         cls.__namespace__ = ''
         if subvalue is not None and mo > 1:
             for sv in subvalue:
