@@ -62,6 +62,7 @@ def new_get_members_etree(prot, cls, inst, parent):
         mo = v.Attributes.max_occurs
         # For the love of god I couldn't figure out why does spyne put attributes
         # on SOAP result tag, so this ends here. Die, you friggin' namespace.
+        print k, v
         cls.__namespace__ = ''
         if subvalue is not None and mo > 1:
             for sv in subvalue:
